@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="lv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kredīta Miera Osta | Kredītu Kontrole — Atgūsti mieru un kontroli</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        ocean: {
+                            50: '#F0F7F7',
+                            100: '#D9ECEB',
+                            200: '#B6D9D8',
+                            500: '#2A8594',
+                            600: '#1B6B7A',
+                            700: '#145360',
+                            800: '#0F4C5C',
+                            900: '#0A3540',
+                        },
+                        sage: {
+                            50: '#F4F9F7',
+                            100: '#E8F3F1',
+                            200: '#CFE6E1',
+                            500: '#4A9B8E',
+                            600: '#387D72',
+                        },
+                        sunrise: {
+                            50: '#FFF8F2',
+                            100: '#FFECD9',
+                            300: '#F8BE8B',
+                            400: '#F4A261',
+                            500: '#E76F51',
+                            600: '#D4583B',
+                        },
+                        lavender: {
+                            50: '#F8F6FF',
+                            100: '#F3F0FF',
+                            200: '#E4DEFF',
+                            400: '#B5A8F7',
+                            500: '#9D8DF1',
+                            600: '#7E6CE0',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.4s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-8px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Pielāgoti slīdņi kalkulatoram */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 8px;
+            border-radius: 999px;
+            background: #D9ECEB;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #0F4C5C;
+            border: 3px solid #FFFFFF;
+            box-shadow: 0 2px 8px rgba(15, 76, 92, 0.35);
+            cursor: pointer;
+            transition: transform 0.15s ease, background-color 0.15s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.12);
+            background: #F4A261;
+        }
+        /* Smalks ritjoslas stils čatam */
+        .chat-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 999px;
+        }
+        /* Maigs varavīksnes / saullēkta fona mirdzums */
+        .aurora-bg {
+            background: 
+                radial-gradient(circle at 12% 18%, rgba(157, 141, 241, 0.14) 0%, transparent 42%),
+                radial-gradient(circle at 88% 15%, rgba(244, 162, 97, 0.16) 0%, transparent 45%),
+                radial-gradient(circle at 50% 85%, rgba(74, 155, 142, 0.12) 0%, transparent 50%),
+                linear-gradient(180deg, #F4F9F7 0%, #FFFFFF 100%);
+        }
+    </style>
+</head>
+<body class="bg-sage-50 text-slate-800 antialiased selection:bg-lavender-200 selection:text-ocean-900">
+
+    <!-- ==================== 1. GALVENE (HEADER) ==================== -->
+    <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-ocean-100/80 transition-all">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-18 py-3.5">
+                <!-- Logotips -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-ocean-800 via-ocean-600 to-sage-500 flex items-center justify-center text-white shadow-md shadow-ocean-800/15 group-hover:scale-105 transition-transform">
+                        <i data-lucide="compass" class="w-5 h-5 text-sunrise-300"></i>
+                    </div>
+                    <div>
+                        <span class="font-display font-bold text-lg sm:text-xl text-ocean-900 tracking-tight block leading-none">
+                            Kredīta Miera Osta
+                        </span>
+                        <span class="text-xs font-medium text-sage-600 tracking-wide uppercase mt-0.5 block">
+                            Kredītu Kontrole
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigācija -->
+                <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600">
+                    <a href="#sakums" class="hover:text-ocean-800 transition-colors">Sākums</a>
+                    <a href="#ai-konsultants" class="hover:text-ocean-800 transition-colors flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-lavender-500"></span>
+                        AI Konsultants
+                    </a>
+                    <a href="#kalkulators" class="hover:text-ocean-800 transition-colors">Miera Kalkulators</a>
+                    <a href="#ka-palidzam" class="hover:text-ocean-800 transition-colors">Rīcības Plāns</a>
+                    <div class="flex items-center gap-2 border-l border-slate-200 pl-4">
+                        <a href="https://t.me/KredituKontrole" target="_blank" rel="noopener noreferrer" title="Telegram: Kredītu Kontrole" class="p-2 rounded-xl text-[#229ED9] hover:bg-sky-50 transition-colors">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </a>
+                        <a href="https://www.facebook.com/infobagadru" target="_blank" rel="noopener noreferrer" title="Facebook: Infobagadru" class="p-2 rounded-xl text-[#1877F2] hover:bg-blue-50 transition-colors">
+                            <i data-lucide="facebook" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                    <a href="#pieteikties" class="px-4 py-2.5 rounded-xl bg-ocean-800 hover:bg-ocean-700 text-white font-semibold shadow-sm transition-all">
+                        Pieteikties Auditu
+                    </a>
+                </nav>
+
+                <!-- Mobilās izvēlnes poga -->
+                <button id="mobile-menu-btn" aria-label="Atvērt izvēlni" class="lg:hidden p-2.5 rounded-xl text-ocean-800 hover:bg-ocean-50 transition-colors">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobilā izvēlne -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-ocean-100 px-4 pt-2 pb-5 space-y-2 shadow-lg">
+            <a href="#sakums" class="mobile-link block px-4 py-2.5 rounded-xl text-base font-medium text-slate-700 hover:bg-sage-50">
+                🏠 Sākums
+            </a>
+            <a href="#ai-konsultants" class="mobile-link block px-4 py-2.5 rounded-xl text-base font-medium text-ocean-900 hover:bg-lavender-50">
+                ✨ AI Konsultants (24/7)
+            </a>
+            <a href="#kalkulators" class="mobile-link block px-4 py-2.5 rounded-xl text-base font-medium text-slate-700 hover:bg-sage-50">
+                📊 Miera Kalkulators
+            </a>
+            <a href="#ka-palidzam" class="mobile-link block px-4 py-2.5 rounded-xl text-base font-medium text-slate-700 hover:bg-sage-50">
+                🧭 Rīcības Plāns
+            </a>
+            <div class="grid grid-cols-2 gap-2 pt-2">
+                <a href="https://t.me/KredituKontrole" target="_blank" rel="noopener noreferrer" class="px-3 py-2.5 rounded-xl bg-sky-50 text-[#229ED9] font-semibold text-sm flex items-center justify-center gap-2">
+                    <i data-lucide="send" class="w-4 h-4"></i> Telegram
+                </a>
+                <a href="https://www.facebook.com/infobagadru" target="_blank" rel="noopener noreferrer" class="px-3 py-2.5 rounded-xl bg-blue-50 text-[#1877F2] font-semibold text-sm flex items-center justify-center gap-2">
+                    <i data-lucide="facebook" class="w-4 h-4"></i> Facebook
+                </a>
+            </div>
+            <a href="#pieteikties" class="mobile-link block px-4 py-3 rounded-xl text-base font-semibold text-center bg-sunrise-400 text-ocean-900 mt-2">
+                Pieteikties 15–30 min auditam
+            </a>
+        </div>
+    </header>
+
+    <!-- ==================== 2. HERO SADAĻA ==================== -->
+    <section id="sakums" class="aurora-bg relative overflow-hidden pt-12 pb-16 sm:pt-20 sm:pb-24 border-b border-ocean-100/60">
+        <!-- Dekoratīvi gaismas akcenti -->
+        <div class="hidden sm:block absolute top-16 right-10 w-64 h-64 bg-sunrise-300/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="hidden sm:block absolute bottom-10 left-10 w-72 h-72 bg-lavender-400/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <!-- Uzticības birka -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 border border-lavender-200 shadow-sm text-xs sm:text-sm font-medium text-ocean-800 mb-6">
+                <span class="flex h-2.5 w-2.5 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sage-500 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-sage-500"></span>
+                </span>
+                Droša vide bez nosodījuma • Diskrēti un bez telefona uzmācības
+            </div>
+
+            <!-- Galvenais virsraksts / Sauklis -->
+            <h1 class="font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl text-ocean-900 tracking-tight leading-[1.15] mb-6">
+                Apturi kredītu stresu šodien. <br class="hidden sm:inline">
+                <span class="bg-gradient-to-r from-ocean-700 via-sage-600 to-sunrise-500 bg-clip-text text-transparent">
+                    Atgūsti mieru, skaidrību un kontroli
+                </span> 
+                pār savu rītdienu.
+            </h1>
+
+            <!-- Apakšvirsraksts -->
+            <p class="max-w-2xl mx-auto text-base sm:text-xl text-slate-600 leading-relaxed mb-9">
+                Tev nav jāpaliek vienam ar sarežģītiem līgumiem un ikmēneša spriedzi. Noskaidro savu situāciju 3 minūtēs ar AI palīgu vai saņem individuālu 15–30 minūšu rīcības plānu.
+            </p>
+
+            <!-- Galvenās darbības pogas (CTA) -->
+            <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3.5 sm:gap-4">
+                <a href="#ai-konsultants" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-sunrise-400 to-sunrise-500 hover:from-sunrise-500 hover:to-sunrise-600 text-white font-bold text-base shadow-lg shadow-sunrise-500/25 flex items-center justify-center gap-2.5 transition-all transform hover:-translate-y-0.5">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                    Runāt ar AI Konsultantu
+                </a>
+                <a href="#kalkulators" class="w-full sm:w-auto px-6 py-4 rounded-2xl bg-white hover:bg-ocean-50 text-ocean-800 border-2 border-ocean-200 font-semibold text-base flex items-center justify-center gap-2.5 transition-all">
+                    <i data-lucide="sliders-horizontal" class="w-5 h-5 text-ocean-600"></i>
+                    Aprēķināt Miera Indeksu
+                </a>
+                <a href="https://t.me/KredituKontrole" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-6 py-4 rounded-2xl bg-[#229ED9]/10 hover:bg-[#229ED9]/20 text-ocean-900 border border-[#229ED9]/30 font-semibold text-base flex items-center justify-center gap-2 transition-all">
+                    <i data-lucide="send" class="w-4 h-4 text-[#229ED9]"></i>
+                    Pievienoties Telegram (@KredituKontrole)
+                </a>
+            </div>
+
+            <!-- 3 ātrās uzticības zīmes -->
+            <div class="mt-12 pt-8 border-t border-ocean-200/50 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto text-sm text-slate-600">
+                <div class="flex items-center justify-center gap-2">
+                    <i data-lucide="shield-check" class="w-5 h-5 text-sage-600 shrink-0"></i>
+                    <span>100% konfidenciāla saruna</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <i data-lucide="mail-check" class="w-5 h-5 text-lavender-600 shrink-0"></i>
+                    <span>Saziņa tikai e-pastā vai Telegram</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <i data-lucide="sun" class="w-5 h-5 text-sunrise-500 shrink-0"></i>
+                    <span>Skaidrs 1. solis jau šodien</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 3. INTERAKTĪVAIS AI KONSULTANTS ==================== -->
+    <section id="ai-konsultants" class="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+        <div class="text-center mb-8">
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-lavender-100 text-lavender-600 font-semibold text-xs uppercase tracking-wider mb-3">
+                <i data-lucide="bot" class="w-4 h-4"></i>
+                Kredīta Miera Asistents • 24/7
+            </span>
+            <h2 class="font-display font-bold text-2xl sm:text-4xl text-ocean-900 mb-3">
+                Izrunāsim situāciju mierīgi un bez steigas
+            </h2>
+            <p class="text-slate-600 max-w-2xl mx-auto text-sm sm:text-base">
+                Izvēlies sev tuvāko situāciju vai ieraksti jautājumu brīvā tekstā. Kopā sapratīsim, vai pietiek ar informāciju pašpalīdzībai, vai labāk sagatavot individuālu rīcības plānu.
+            </p>
+        </div>
+
+        <!-- Čata konteiners -->
+        <div class="bg-white rounded-3xl shadow-xl shadow-ocean-900/5 border border-lavender-200/80 overflow-hidden">
+            <!-- Čata augšējā josla -->
+            <div class="bg-gradient-to-r from-ocean-900 via-ocean-800 to-lavender-600 px-5 py-4 flex items-center justify-between text-white">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center border border-white/20">
+                        <i data-lucide="heart-handshake" class="w-5 h-5 text-sunrise-300"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-base leading-tight">Kredīta Miera Asistents</h3>
+                        <p class="text-xs text-ocean-100 flex items-center gap-1.5 mt-0.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>
+                            Gemini AI • Empātiska situācijas analīze
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="transfer-chat-btn" title="Pārnest sarunu uz 15–30 min audita pieteikumu" class="px-3 py-1.5 rounded-xl bg-sunrise-400 hover:bg-sunrise-500 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-sm">
+                        <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                        <span class="hidden sm:inline">Pārnest sarunu uz 15–30 min audita pieteikumu</span>
+                        <span class="sm:hidden">Uz auditu</span>
+                    </button>
+                    <button id="reset-chat-btn" title="Sākt sarunu no jauna" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-medium flex items-center gap-1.5 transition-colors">
+                        <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                        <span class="hidden md:inline">No jauna</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Ziņojumu logs -->
+            <div id="chat-messages" class="chat-scroll h-[380px] sm:h-[430px] overflow-y-auto p-4 sm:p-6 space-y-4 bg-gradient-to-b from-lavender-50/40 via-white to-sage-50/30">
+                <!-- Ziņojumi tiks ievietoti dinamiski caur JS -->
+            </div>
+
+            <!-- Ātro atbilžu / izvēles pogu zona -->
+            <div id="chat-quick-replies" class="px-4 sm:px-6 py-3 bg-lavender-50/70 border-t border-lavender-100 flex flex-wrap gap-2">
+                <!-- Ātrās pogas dinamiski -->
+            </div>
+
+            <!-- Teksta ievades lauks -->
+            <form id="chat-form" class="p-3 sm:p-4 bg-white border-t border-slate-100 flex items-center gap-2.5">
+                <input 
+                    type="text" 
+                    id="chat-input" 
+                    placeholder="Ieraksti savu jautājumu vai situāciju (piem., man ir 3 kredīti un grūti pavilkt)..." 
+                    class="flex-1 px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 focus:border-lavender-500 focus:bg-white focus:outline-none text-sm sm:text-base text-slate-800 transition-all"
+                    autocomplete="off"
+                >
+                <button 
+                    type="submit" 
+                    aria-label="Nosūtīt ziņu"
+                    class="px-5 py-3 rounded-2xl bg-ocean-800 hover:bg-ocean-700 text-white font-semibold flex items-center gap-2 transition-all shadow-sm shrink-0">
+                    <span class="hidden sm:inline">Nosūtīt</span>
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ==================== 4. KREDĪTA MIERA UN SLOGA KALKULATORS ==================== -->
+    <section id="kalkulators" class="py-14 sm:py-20 bg-white border-y border-ocean-100/70">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-sage-100 text-ocean-800 font-semibold text-xs uppercase tracking-wider mb-3">
+                    <i data-lucide="gauge" class="w-4 h-4 text-ocean-600"></i>
+                    Pašnovērtējuma rīks
+                </span>
+                <h2 class="font-display font-bold text-2xl sm:text-4xl text-ocean-900 mb-3">
+                    Kredīta Miera un Sloga Kalkulators
+                </h2>
+                <p class="text-slate-600 max-w-2xl mx-auto text-sm sm:text-base">
+                    Pabīdi slīdņus, lai uzreiz redzētu, cik veselīga ir tava pašreizējā kredītu slodze un cik daudz ikmēneša miera vari atgūt, sakārtojot saistības.
+                </p>
+            </div>
+
+            <div class="bg-gradient-to-br from-sage-50 via-white to-lavender-50/50 rounded-3xl p-6 sm:p-10 border border-ocean-100 shadow-lg shadow-ocean-900/5 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Kreisā puse: Slīdņi -->
+                <div class="lg:col-span-7 space-y-6">
+                    <!-- 1. slīdnis: Ienākumi -->
+                    <div class="bg-white p-5 rounded-2xl border border-ocean-100/80 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <label for="income-slider" class="font-semibold text-ocean-900 text-sm sm:text-base">
+                                Ikmēneša ienākumi "uz rokas" (Neto)
+                            </label>
+                            <span id="income-value" class="font-display font-bold text-xl sm:text-2xl text-ocean-800 bg-ocean-50 px-3.5 py-1 rounded-xl">
+                                1 400 €
+                            </span>
+                        </div>
+                        <input type="range" id="income-slider" min="500" max="5000" step="50" value="1400" class="w-full">
+                        <div class="flex justify-between text-xs text-slate-400 mt-2">
+                            <span>500 €</span>
+                            <span>2 500 €</span>
+                            <span>5 000 €</span>
+                        </div>
+                    </div>
+
+                    <!-- 2. slīdnis: Kredītu maksājumi -->
+                    <div class="bg-white p-5 rounded-2xl border border-ocean-100/80 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <label for="debt-slider" class="font-semibold text-ocean-900 text-sm sm:text-base">
+                                Visi kredītu maksājumi kopā mēnesī
+                            </label>
+                            <span id="debt-value" class="font-display font-bold text-xl sm:text-2xl text-sunrise-600 bg-sunrise-50 px-3.5 py-1 rounded-xl">
+                                560 €
+                            </span>
+                        </div>
+                        <input type="range" id="debt-slider" min="50" max="3500" step="25" value="560" class="w-full">
+                        <div class="flex justify-between text-xs text-slate-400 mt-2">
+                            <span>50 €</span>
+                            <span>1 500 €</span>
+                            <span>3 500 €</span>
+                        </div>
+                    </div>
+
+                    <!-- 3. slīdnis: Aktīvo aizdevēju skaits -->
+                    <div class="bg-white p-5 rounded-2xl border border-ocean-100/80 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <label for="lenders-slider" class="font-semibold text-ocean-900 text-sm sm:text-base">
+                                Aktīvo aizdevēju / kredītu skaits
+                            </label>
+                            <span id="lenders-value" class="font-display font-bold text-xl sm:text-2xl text-lavender-600 bg-lavender-50 px-3.5 py-1 rounded-xl">
+                                3 kreditori
+                            </span>
+                        </div>
+                        <input type="range" id="lenders-slider" min="1" max="10" step="1" value="3" class="w-full">
+                        <div class="flex justify-between text-xs text-slate-400 mt-2">
+                            <span>1</span>
+                            <span>5</span>
+                            <span>10+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Labā puse: Rezultāts un Miera indekss -->
+                <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 border border-ocean-100 shadow-md text-center">
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Tavs slodzes rādītājs</p>
+                    
+                    <!-- Procentu aplis / rādītājs -->
+                    <div class="my-4 relative inline-flex items-center justify-center">
+                        <div id="stress-badge-ring" class="w-32 h-32 rounded-full border-8 border-sunrise-400 flex flex-col items-center justify-center bg-sunrise-50/40 transition-colors duration-300">
+                            <span id="ratio-percent" class="font-display font-extrabold text-3xl text-ocean-900">40%</span>
+                            <span class="text-[11px] font-medium text-slate-500">no ienākumiem</span>
+                        </div>
+                    </div>
+
+                    <!-- Statusa nosaukums -->
+                    <div id="stress-status-title" class="font-display font-bold text-lg text-sunrise-600 mb-2">
+                        Paaugstinātas spriedzes zona
+                    </div>
+                    <p id="stress-status-desc" class="text-sm text-slate-600 leading-relaxed mb-5">
+                        Kredīti paņem ievērojamu daļu budžeta. Pārskatot procentu likmes vai apvienojot maksājumus, iespējams atbrīvot ap <strong class="text-ocean-900" id="potential-savings">140 € / mēn.</strong>
+                    </p>
+
+                    <!-- Poga uz AI čatu ar šiem datiem -->
+                    <button id="send-calc-to-chat" class="w-full py-3.5 px-5 rounded-2xl bg-ocean-800 hover:bg-ocean-700 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-sm">
+                        <i data-lucide="message-square-plus" class="w-4 h-4 text-sunrise-300"></i>
+                        Nosūtīt šos skaitļus AI Konsultantam
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 5. KĀ MĒS PALĪDZAM (3 SOLI) ==================== -->
+    <section id="ka-palidzam" class="py-14 sm:py-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-sunrise-100 text-sunrise-600 font-semibold text-xs uppercase tracking-wider mb-3">
+                Skaidrs ceļš uz priekšu
+            </span>
+            <h2 class="font-display font-bold text-2xl sm:text-4xl text-ocean-900 mb-3">
+                Kā Kredīta Miera Osta palīdz atgūt kontroli?
+            </h2>
+            <p class="text-slate-600 max-w-2xl mx-auto text-sm sm:text-base">
+                Tu pats izvēlies tempu. Sāc ar bezmaksas informāciju vai piesakies īsam, konkrētam situācijas auditam.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            <!-- 1. Solis -->
+            <div class="bg-white rounded-3xl p-7 border-2 border-ocean-200 shadow-md relative flex flex-col justify-between">
+                <div class="absolute -top-3.5 right-6 px-3 py-1 rounded-full bg-sunrise-400 text-white text-xs font-bold shadow-sm">
+                    Populārākais pirmais solis
+                </div>
+                <div>
+                    <div class="w-12 h-12 rounded-2xl bg-ocean-100 text-ocean-800 flex items-center justify-center font-display font-bold text-xl mb-5">
+                        1
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-ocean-900 mb-3">
+                        15–30 minūšu Situācijas Audits
+                    </h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Konfidenciāla, cilvēcīga tavu esošo saistību caurskate bez nosodījuma. Paskatāmies uz skaitļiem no malas un atrodam vietas, kur šobrīd pārmaksā vai kur slēpjas lielākais risks.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-100 text-xs font-semibold text-ocean-700 flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-4 h-4"></i>
+                    Skaidrs skats uz skaitļiem
+                </div>
+            </div>
+
+            <!-- 2. Solis -->
+            <div class="bg-white rounded-3xl p-7 border border-ocean-100 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-2xl bg-sage-100 text-sage-600 flex items-center justify-center font-display font-bold text-xl mb-5">
+                        2
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-ocean-900 mb-3">
+                        Individuāls Rīcības Plāns
+                    </h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Soli-pa-solim stratēģija sarunām ar kreditoriem, refinansēšanai vai procentu likmju samazināšanai, lai apturētu stresu un tu atkal justos droši.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-100 text-xs font-semibold text-sage-600 flex items-center gap-1.5">
+                    <i data-lucide="map-pin" class="w-4 h-4"></i>
+                    Skaidrs ceļvedis rīcībai
+                </div>
+            </div>
+
+            <!-- 3. Solis -->
+            <div class="bg-white rounded-3xl p-7 border border-ocean-100 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-2xl bg-lavender-100 text-lavender-600 flex items-center justify-center font-display font-bold text-xl mb-5">
+                        3
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-ocean-900 mb-3">
+                        Kopiena un Atbalsts
+                    </h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Ikdienas praktiski padomi un reāli piemēri mūsu <a href="https://t.me/KredituKontrole" target="_blank" rel="noopener noreferrer" class="text-ocean-700 font-semibold underline">Telegram kanālā</a> un <a href="https://www.facebook.com/infobagadru" target="_blank" rel="noopener noreferrer" class="text-ocean-700 font-semibold underline">Facebook lapā</a>, lai tu nekad nejustos viens.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-100 text-xs font-semibold text-lavender-600 flex items-center gap-1.5">
+                    <i data-lucide="users" class="w-4 h-4"></i>
+                    Bezmaksas • Tavā tempā
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 6. PIETEIKUMA FORMA UN TELEGRAM BLOKS ==================== -->
+    <section id="pieteikties" class="py-14 sm:py-20 bg-gradient-to-b from-ocean-900 to-ocean-800 text-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                
+                <!-- Kreisā kolonna: Uzticība + Telegram kanāls -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 text-sunrise-300 font-semibold text-xs uppercase tracking-wider">
+                        <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+                        Diskrēta saziņa
+                    </span>
+                    <h2 class="font-display font-bold text-2xl sm:text-4xl leading-tight">
+                    <!-- Telegram un Facebook kopienas bloki -->
+                    <div class="p-6 rounded-3xl bg-white/10 backdrop-blur-sm border border-white/15 space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-11 h-11 rounded-2xl bg-[#229ED9] flex items-center justify-center text-white shrink-0 shadow-md">
+                                <i data-lucide="send" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-display font-bold text-lg text-white">Telegram: Kredītu Kontrole</h3>
+                                <p class="text-xs text-ocean-100">Praktiski padomi un reāli risinājumi katru nedēļu</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-ocean-100 leading-relaxed">
+                            Ja vēl neesi gatavs personīgai sarunai, pievienojies kanālam vai seko mums Facebook — lasi noderīgus ieteikumus anonīmi.
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            <a href="https://t.me/KredituKontrole" target="_blank" rel="noopener noreferrer" class="py-3 px-4 rounded-xl bg-white text-ocean-900 hover:bg-sunrise-100 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors">
+                                <i data-lucide="send" class="w-4 h-4 text-[#229ED9]"></i>
+                                <span>Telegram kanāls</span>
+                            </a>
+                            <a href="https://www.facebook.com/infobagadru" target="_blank" rel="noopener noreferrer" class="py-3 px-4 rounded-xl bg-white/15 hover:bg-white/25 text-white border border-white/20 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors">
+                                <i data-lucide="facebook" class="w-4 h-4"></i>
+                                <span>Facebook lapa</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Labā kolonna: Pieteikuma forma (bez telefona numura!) -->
+                <div class="lg:col-span-7 bg-white text-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
+                    <h3 class="font-display font-bold text-xl sm:text-2xl text-ocean-900 mb-2">
+                        Pieteikties 15–30 minūšu auditam un rīcības plānam
+                    </h3>
+                    <p class="text-sm text-slate-500 mb-6">
+                        Aizpildi īsi — ja runāji ar AI asistentu, tavi galvenie punkti jau ir šeit sagatavoti.
+                    </p>
+
+                    <form id="audit-form" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="client-name" class="block text-sm font-semibold text-ocean-900 mb-1.5">
+                                    Vārds (vai pseidonīms)
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="client-name" 
+                                    placeholder="Piem., Jānis vai A." 
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-ocean-600 focus:bg-white focus:outline-none text-sm"
+                                >
+                            </div>
+                            <div>
+                                <label for="client-email" class="block text-sm font-semibold text-ocean-900 mb-1.5">
+                                    E-pasta adrese atbildei <span class="text-sunrise-500">*</span>
+                                </label>
+                                <input 
+                                    type="email" 
+                                    id="client-email" 
+                                    required
+                                    placeholder="tavs@epasts.lv" 
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-ocean-600 focus:bg-white focus:outline-none text-sm"
+                                >
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="client-topic" class="block text-sm font-semibold text-ocean-900 mb-1.5">
+                                Izvēlētais formāts
+                            </label>
+                            <select 
+                                id="client-topic" 
+                                class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-ocean-600 focus:bg-white focus:outline-none text-sm"
+                            >
+                                <option value="15–30 min situācijas audits">15–30 min situācijas audits</option>
+                                <option value="Individuāls rīcības plāns">Individuāls rīcības plāns</option>
+                                <option value="Tikai e-pasta ieteikumi">Tikai e-pasta ieteikumi</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="client-summary" class="block text-sm font-semibold text-ocean-900 mb-1.5">
+                                Situācijas apraksts (brīvā formā)
+                            </label>
+                            <textarea 
+                                id="client-summary" 
+                                rows="4" 
+                                placeholder="Pastāsti pāris teikumos, kas šobrīd rada vislielāko spriedzi..." 
+                                class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-ocean-600 focus:bg-white focus:outline-none text-sm"
+                            ></textarea>
+                            <p class="text-xs text-slate-500 mt-1.5 flex items-center gap-1.5">
+                                <i data-lucide="shield" class="w-3.5 h-3.5 text-sage-600 shrink-0"></i>
+                                Telefona numurs nav obligāts — saziņa notiek diskrēti e-pastā vai Telegram.
+                            </p>
+                        </div>
+
+                        <button 
+                            type="submit" 
+                            class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-sunrise-400 to-sunrise-500 hover:from-sunrise-500 hover:to-sunrise-600 text-white font-bold text-base shadow-lg shadow-sunrise-500/25 flex items-center justify-center gap-2 transition-all">
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                            Nosūtīt pieteikumu mierīgam risinājumam
+                        </button>
+                    </form>
+
+                    <!-- Apstiprinājuma logs pēc nosūtīšanas (sākumā paslēpts) -->
+                    <div id="form-success-box" class="hidden mt-6 p-6 rounded-2xl bg-sage-50 border border-sage-200 animate-fade-in">
+                        <div class="flex items-start gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-full bg-sage-500 text-white flex items-center justify-center shrink-0">
+                                <i data-lucide="check" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-bold text-lg text-ocean-900">Paldies! Tavs pieteikums ir sagatavots.</h4>
+                                <p class="text-sm text-slate-600 mt-1">
+                                    Esmu fiksējis tavu situāciju. Tuvākajā laikā saņemsi atbildi norādītajā e-pastā ar piedāvājumu 15–30 minūšu auditam un sākotnējiem soļiem.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Strukturēts kopsavilkums (Obsidian / Telegram gatavs!) -->
+                        <div class="bg-white p-4 rounded-xl border border-ocean-100 text-xs font-mono text-slate-700 whitespace-pre-wrap mb-4" id="generated-dossier"></div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                            <button id="copy-dossier-btn" class="py-2.5 px-4 rounded-xl bg-ocean-800 hover:bg-ocean-700 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                                <span id="copy-btn-text">Kopēt kopsavilkumu</span>
+                            </button>
+                            <a href="https://t.me/KredituKontrole" target="_blank" rel="noopener noreferrer" class="py-2.5 px-4 rounded-xl bg-[#229ED9] hover:bg-[#1d8cc2] text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors">
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                                <span>Atvērt Telegram</span>
+                            </a>
+                            <a id="mailto-dossier-btn" href="#" class="py-2.5 px-4 rounded-xl bg-sunrise-400 hover:bg-sunrise-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors">
+                                <i data-lucide="mail" class="w-4 h-4"></i>
+                                <span>Sūtīt e-pastā</span>
+                            </a>
+                        </div>
+                        <div class="mt-3 text-right">
+                            <button id="new-request-btn" class="text-xs text-slate-500 hover:text-ocean-800 underline">
+                                Labot ievadītos datus
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 7. KĀJENE (FOOTER) ==================== -->
+    <footer class="bg-ocean-900 text-ocean-200 border-t border-white/10 py-10 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
+                <div>
+                    <span class="font-display font-bold text-white text-lg">Kredīta Miera Osta</span>
+                    <span class="mx-2 text-ocean-500">•</span>
+                    <span class="text-sm text-sunrise-300 font-medium">Kredītu Kontrole</span>
+                    <p class="text-xs text-ocean-200/80 mt-1">
+                        100% konfidenciāli. Bez telefona uzmācības — saziņa tikai e-pastā vai Telegram.
+                    </p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="https://t.me/KredituKontrole" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold flex items-center gap-2 transition-colors">
+                        <i data-lucide="send" class="w-3.5 h-3.5 text-[#229ED9]"></i>
+                        Telegram
+                    </a>
+                    <a href="https://www.facebook.com/infobagadru" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold flex items-center gap-2 transition-colors">
+                        <i data-lucide="facebook" class="w-3.5 h-3.5 text-[#60A5FA]"></i>
+                        Facebook
+                    </a>
+                </div>
+            </div>
+            <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-2 text-[11px] text-ocean-300/80 text-center sm:text-left">
+                <p>
+                    Atruna: Sniegtās konsultācijas un rīcības plāni ir informatīva un stratēģiska finanšu pratības palīdzība, nevis banku kreditēšanas piedāvājums vai oficiāls juridisks slēdziens.
+                </p>
+                <p class="shrink-0">© 2026 Kredīta Miera Osta</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT LOĢIKA ==================== -->
+    <script>
+        // Inicializējam ikonas
+        lucide.createIcons();
+
+        // ---------------- 1. MOBILĀ IZVĒLNE ----------------
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // ---------------- 2. KREDĪTA MIERA KALKULATORS ----------------
+        const incomeSlider = document.getElementById('income-slider');
+        const debtSlider = document.getElementById('debt-slider');
+        const lendersSlider = document.getElementById('lenders-slider');
+        const incomeValue = document.getElementById('income-value');
+        const debtValue = document.getElementById('debt-value');
+        const lendersValue = document.getElementById('lenders-value');
+        const ratioPercent = document.getElementById('ratio-percent');
+        const stressBadgeRing = document.getElementById('stress-badge-ring');
+        const stressStatusTitle = document.getElementById('stress-status-title');
+        const stressStatusDesc = document.getElementById('stress-status-desc');
+        const sendCalcToChatBtn = document.getElementById('send-calc-to-chat');
+
+        function formatEuro(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " €";
+        }
+
+        function updateCalculator() {
+            const income = parseInt(incomeSlider.value, 10);
+            const debt = parseInt(debtSlider.value, 10);
+            const lenders = parseInt(lendersSlider.value, 10);
+
+            incomeValue.textContent = formatEuro(income);
+            debtValue.textContent = formatEuro(debt);
+            lendersValue.textContent = lenders === 10 ? "10+ kreditori" : (lenders === 1 ? "1 kreditors" : `${lenders} kreditori`);
+
+            const ratio = Math.round((debt / income) * 100);
+            ratioPercent.textContent = ratio + "%";
+
+            // Potenciālais atvieglojums atkarībā no kreditoru skaita un slodzes
+            const factor = lenders >= 3 ? 0.30 : 0.22;
+            const minSavings = Math.max(20, Math.round((debt * (factor - 0.06)) / 5) * 5);
+            const maxSavings = Math.max(35, Math.round((debt * (factor + 0.05)) / 5) * 5);
+
+            // Resetojam krāsu klases
+            stressBadgeRing.className = "w-32 h-32 rounded-full border-8 flex flex-col items-center justify-center transition-colors duration-300 ";
+
+            if (ratio < 30) {
+                stressBadgeRing.classList.add("border-sage-500", "bg-sage-50/50");
+                stressStatusTitle.className = "font-display font-bold text-lg text-sage-600 mb-2";
+                stressStatusTitle.textContent = "Zaļā miera zona";
+                stressStatusDesc.innerHTML = `Tava kredītu slodze ir veselīgās robežās. Pārskatot procentu likmes (${lenders === 1 ? '1 līgumam' : lenders + ' līgumiem'}), potenciālais ietaupījums ir <strong class="text-ocean-900">${minSavings}–${maxSavings} € / mēn.</strong>`;
+            } else if (ratio <= 45) {
+                stressBadgeRing.classList.add("border-sunrise-400", "bg-sunrise-50/50");
+                stressStatusTitle.className = "font-display font-bold text-lg text-sunrise-600 mb-2";
+                stressStatusTitle.textContent = "Dzeltenā spriedzes zona";
+                stressStatusDesc.innerHTML = `Kredīti paņem ievērojamu daļu budžeta. Apvienojot vai pārskatot ${lenders} kreditoru nosacījumus, vari atbrīvot aptuveni <strong class="text-ocean-900">${minSavings}–${maxSavings} € / mēn.</strong>`;
+            } else {
+                stressBadgeRing.classList.add("border-rose-500", "bg-rose-50/50");
+                stressStatusTitle.className = "font-display font-bold text-lg text-rose-600 mb-2";
+                stressStatusTitle.textContent = "Sarkanā pārslodzes zona";
+                stressStatusDesc.innerHTML = `Šāda slodze rada pastāvīgu trauksmi. Iesakām nekavējoties izveidot rīcības plānu, lai samazinātu maksājumu par aptuveni <strong class="text-ocean-900">${minSavings}–${maxSavings} € / mēn.</strong>`;
+            }
+        }
+
+        incomeSlider.addEventListener('input', updateCalculator);
+        debtSlider.addEventListener('input', updateCalculator);
+        lendersSlider.addEventListener('input', updateCalculator);
+        updateCalculator();
+
+        // ---------------- 3. AI KONSULTANTA ČATS (AR GEMINI API + FALLBACK) ----------------
+        const chatMessages = document.getElementById('chat-messages');
+        const chatQuickReplies = document.getElementById('chat-quick-replies');
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const resetChatBtn = document.getElementById('reset-chat-btn');
+        const transferChatBtn = document.getElementById('transfer-chat-btn');
+
+        let chatHistory = [];
+        let chatState = {
+            painPoint: '',
+            details: '',
+            calcInfo: ''
+        };
+
+        const SYSTEM_PROMPT = `Tu esi "Kredīta Miera Asistents" projektā "Kredīta Miera Osta" (zem zīmola "Kredītu Kontrole", ko vada Dainis).
+Tava misija: empātiski, mierīgi, bez nosodījuma un sarežģītiem juridiskiem terminiem palīdzēt cilvēkam saprast savu kredītu situāciju latviešu valodā.
+Noteikumi:
+1. Nekad nesoli banku vārdā apstiprinātu kredītu vai juridisku garantiju.
+2. Palīdzi noskaidrot cilvēka galveno sāpi (augsti ikmēneša maksājumi, kavēti maksājumi, vairāki kredīti / refinansēšana, augsti procenti).
+3. Atbildi īsi, strukturēti (3–5 teikumi vai 3 punkti), silti un cerību raisoši.
+4. Katras atbildes beigās palīdzi cilvēkam izvēlēties starp diviem skaidriem ceļiem:
+   (a) Pašpalīdzības ceļš: 3 konkrēti soļi + pievienošanās Telegram kanālam https://t.me/KredituKontrole
+   (b) Personīgais 15–30 minūšu situācijas audits un individuāls rīcības plāns ar Daini (saziņa diskrēti e-pastā, bez telefona zvaniem).`;
+
+        function formatMarkdownToHtml(text) {
+            return text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/(https:\/\/t\.me\/KredituKontrole)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-ocean-700 font-bold underline">$1</a>')
+                .replace(/\n/g, '<br>');
+        }
+
+        function addMessage(sender, htmlText, rawText = '') {
+            const wrapper = document.createElement('div');
+            wrapper.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`;
+
+            const bubble = document.createElement('div');
+            if (sender === 'user') {
+                bubble.className = "max-w-[85%] sm:max-w-[75%] px-4 py-3 rounded-2xl rounded-tr-sm bg-ocean-800 text-white text-sm sm:text-base shadow-sm leading-relaxed";
+            } else {
+                bubble.className = "max-w-[88%] sm:max-w-[80%] px-4 py-3.5 rounded-2xl rounded-tl-sm bg-white border border-lavender-200 text-slate-800 text-sm sm:text-base shadow-sm leading-relaxed";
+            }
+            bubble.innerHTML = htmlText;
+            wrapper.appendChild(bubble);
+            chatMessages.appendChild(wrapper);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            if (rawText) {
+                chatHistory.push({
+                    role: sender === 'user' ? 'user' : 'model',
+                    parts: [{ text: rawText }]
+                });
+            }
+        }
+
+        function showTypingIndicator() {
+            const wrapper = document.createElement('div');
+            wrapper.id = 'typing-indicator';
+            wrapper.className = 'flex justify-start animate-fade-in';
+            wrapper.innerHTML = `
+                <div class="px-4 py-3 rounded-2xl rounded-tl-sm bg-white border border-lavender-200 text-slate-500 text-sm flex items-center gap-2 shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-lavender-500 animate-bounce"></span>
+                    <span class="w-2 h-2 rounded-full bg-lavender-500 animate-bounce" style="animation-delay: 0.15s"></span>
+                    <span class="w-2 h-2 rounded-full bg-lavender-500 animate-bounce" style="animation-delay: 0.3s"></span>
+                    <span class="text-xs ml-1">Asistents gatavo atbildi...</span>
+                </div>
+            `;
+            chatMessages.appendChild(wrapper);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const el = document.getElementById('typing-indicator');
+            if (el) el.remove();
+        }
+
+        function setQuickReplies(options) {
+            chatQuickReplies.innerHTML = '';
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = opt.primary 
+                    ? "px-3.5 py-2 rounded-xl bg-sunrise-400 hover:bg-sunrise-500 text-white font-semibold text-xs sm:text-sm transition-all shadow-sm"
+                    : "px-3.5 py-2 rounded-xl bg-white hover:bg-lavender-100 text-ocean-900 border border-lavender-200 font-medium text-xs sm:text-sm transition-all";
+                btn.textContent = opt.label;
+                btn.addEventListener('click', () => handleUserReply(opt.label, opt.action));
+                chatQuickReplies.appendChild(btn);
+            });
+        }
+
+        // Rezerves gudrā atbilžu loģika, ja API atslēga nav pieejama vidē
+        function getFallbackResponse(userText) {
+            const lower = userText.toLowerCase();
+            if (lower.includes('kavē') || lower.includes('zvan')) {
+                return `Svarīgākais šobrīd ir nepalikt vienam un neignorēt saziņu, bet arī neļaut panikai vadīt tavus lēmumus. 🌿\n\n**3 pirmie miera soļi:**\n1. Uzraksti uz lapas visus aktīvos aizdevējus un kavējuma dienas.\n2. Neņem jaunu kredītu vecā segšanai.\n3. Sazinies ar kreditoru rakstiski (e-pastā), lai fiksētu sarunu.\n\nVai vēlies turpināt **pašpalīdzības ceļā** mūsu Telegram kanālā https://t.me/KredituKontrole , vai pieteikties **15–30 minūšu situācijas auditam**, lai kopā saliekam plānu?`;
+            }
+            if (lower.includes('apvienot') || lower.includes('vairāk')) {
+                return `Vairāki maksājumi dažādos datumos rada milzīgu spriedzi, taču līgumu apvienošana vai pārskatīšana bieži ļauj samazināt ikmēneša slogu.\n\n**Ko darīt tālāk?**\n• **Pašpalīdzība:** Izlasi praktiskos piemērus par apvienošanu Telegram kanālā https://t.me/KredituKontrole .\n• **Personīgais plāns:** Pieteiksim **15–30 minūšu auditu**, kur izvērtēsim tavus skaitļus un sagatavosim rīcības stratēģiju (saziņa tikai e-pastā).`;
+            }
+            if (lower.includes('audits') || lower.includes('strādā')) {
+                return `**15–30 minūšu situācijas audits** ir mierīga, konfidenciāla saruna vai rakstiska analīze bez nosodījuma:\n1. Apskatām tavus esošos maksājumus un procentus.\n2. Atrodam, kur šobrīd pārmaksā un kādi ir drošākie risinājumi.\n3. Tu saņem skaidru **individuālu rīcības plānu**.\n\nSpied pogu **"Pārnest sarunu uz 15–30 min audita pieteikumu"** augstāk, un mēs uzreiz sagatavosim pieteikumu e-pastam!`;
+            }
+            return `Paldies, ka padalījies! Katru kredītu situāciju var sakārtot, kad tai pieiet mierīgi un soli pa solim.\n\nTev ir divas lieliskas izvēles:\n1. **Pašpalīdzības ceļš:** Saņem ikdienas padomus Telegram kanālā https://t.me/KredituKontrole un sakārto budžetu savā tempā.\n2. **15–30 minūšu audits ar Daini:** Kopā izskatām tavu situāciju un izveidojam konkrētu rīcības plānu (bez telefona zvaniem, tikai e-pastā).`;
+        }
+
+        async function fetchGeminiReply(userMessage) {
+            const apiKey = ""; // Izpildes vide automātiski nodrošina atslēgu, ja tā ir konfigurēta
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: chatHistory,
+                systemInstruction: {
+                    parts: [{ text: SYSTEM_PROMPT }]
+                }
+            };
+
+            const delays = [1000, 2000, 4000];
+            for (let attempt = 0; attempt <= delays.length; attempt++) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) throw new Error('API nav sasniedzams');
+                    const result = await response.json();
+                    const aiText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (aiText) return aiText;
+                    throw new Error('Tukša atbilde');
+                } catch (err) {
+                    if (attempt < delays.length) {
+                        await new Promise(res => setTimeout(res, delays[attempt]));
+                    } else {
+                        return getFallbackResponse(userMessage);
+                    }
+                }
+            }
+        }
+
+        function initChat() {
+            chatHistory = [];
+            chatState = { painPoint: '', details: '', calcInfo: '' };
+            chatMessages.innerHTML = '';
+            const welcomeRaw = `Sveicināts **Kredīta Miera Ostā**! 🌿\n\nŠeit nav nosodījuma vai steigas. Es esmu tavs AI konsultants, lai palīdzētu salikt domas pa plauktiem un atrast drošāko pirmo soli.\n\nPastāsti — **kas šobrīd tev rada vislielāko spriedzi?**`;
+            addMessage('ai', formatMarkdownToHtml(welcomeRaw), welcomeRaw);
+            setQuickReplies([
+                { label: "Maksājumi apēd pusi algas", action: "chat" },
+                { label: "Kavēju maksājumu un baidos no zvaniem", action: "chat" },
+                { label: "Vēlos apvienot vairākus kredītus", action: "chat" },
+                { label: "Kā strādā 15–30 min audits?", action: "chat" }
+            ]);
+        }
+
+        // Pārnes sarunas kopsavilkumu uz pieteikuma formu
+        function transferToAuditForm(customNote = '') {
+            const summaryField = document.getElementById('client-summary');
+            const topicField = document.getElementById('client-topic');
+            
+            const userMessages = chatHistory
+                .filter(m => m.role === 'user')
+                .map(m => "• " + m.parts[0].text)
+                .join('\n');
+
+            let compiledText = "";
+            if (chatState.calcInfo) compiledText += `Kalkulatora aprēķins: ${chatState.calcInfo}\n\n`;
+            if (userMessages) compiledText += `Manas atbildes AI sarunā:\n${userMessages}\n`;
+            if (customNote) compiledText += `\nVēlamais solis: ${customNote}`;
+
+            summaryField.value = compiledText.trim() || "Vēlos pieteikties 15–30 minūšu situācijas auditam.";
+            topicField.value = "15–30 min situācijas audits";
+
+            document.getElementById('pieteikties').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => document.getElementById('client-email').focus(), 600);
+        }
+
+        transferChatBtn.addEventListener('click', () => {
+            transferToAuditForm("Vēlos 15–30 minūšu situācijas auditu un individuālu rīcības plānu.");
+        });
+
+        async function handleUserReply(text, action = 'chat') {
+            if (action === 'go_audit') {
+                addMessage('user', text, text);
+                const reply = `Lielisks un drosmīgs solis! 🤝\n\nEs jau pārnesu mūsu sarunas kopsavilkumu uz pieteikuma formu zemāk. Norādi tikai savu **e-pastu** (telefona numuru neprasu!), lai Dainis var sagatavot tavu 15–30 minūšu situācijas auditu.`;
+                addMessage('ai', formatMarkdownToHtml(reply), reply);
+                setTimeout(() => transferToAuditForm("Pārnests no AI konsultanta sarunas."), 650);
+                return;
+            }
+
+            if (action === 'go_telegram') {
+                window.open('https://t.me/KredituKontrole', '_blank', 'noopener,noreferrer');
+                return;
+            }
+
+            if (!chatState.painPoint) chatState.painPoint = text;
+            else chatState.details += " " + text;
+
+            addMessage('user', text, text);
+            showTypingIndicator();
+
+            const replyText = await fetchGeminiReply(text);
+            removeTypingIndicator();
+            addMessage('ai', formatMarkdownToHtml(replyText), replyText);
+
+            setQuickReplies([
+                { label: "Pārnest sarunu uz 15–30 min audita pieteikumu", action: "go_audit", primary: true },
+                { label: "Atvērt Telegram (@KredituKontrole)", action: "go_telegram" }
+            ]);
+        }
+
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const val = chatInput.value.trim();
+            if (!val) return;
+            chatInput.value = '';
+            handleUserReply(val);
+        });
+
+        resetChatBtn.addEventListener('click', initChat);
+
+        // Poga no kalkulatora uz čatu
+        sendCalcToChatBtn.addEventListener('click', () => {
+            const inc = incomeSlider.value;
+            const dbt = debtSlider.value;
+            const lnd = lendersSlider.value;
+            const pct = Math.round((dbt / inc) * 100);
+            const msg = `Mani kalkulatora skaitļi: neto ienākumi ${inc} €, kredītu maksājumi ${dbt} € mēnesī (${pct}% slodze), kopā ${lnd} kreditori. Ko tu ieteiktu?`;
+            chatState.calcInfo = `Ienākumi ${inc} €, maksājumi ${dbt} € (${pct}% slodze), ${lnd} kreditori`;
+            
+            document.getElementById('ai-konsultants').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => handleUserReply(msg), 500);
+        });
+
+        // ---------------- 4. PIETEIKUMA FORMA UN OBSIDIAN MARKDOWN ----------------
+        const auditForm = document.getElementById('audit-form');
+        const formSuccessBox = document.getElementById('form-success-box');
+        const generatedDossier = document.getElementById('generated-dossier');
+        const copyDossierBtn = document.getElementById('copy-dossier-btn');
+        const copyBtnText = document.getElementById('copy-btn-text');
+        const mailtoDossierBtn = document.getElementById('mailto-dossier-btn');
+        const newRequestBtn = document.getElementById('new-request-btn');
+
+        auditForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('client-name').value.trim() || "Anonīms apmeklētājs";
+            const email = document.getElementById('client-email').value.trim();
+            const topic = document.getElementById('client-topic').value;
+            const summary = document.getElementById('client-summary').value.trim() || "Nav norādīts papildu apraksts.";
+
+            const today = new Date().toISOString().split('T')[0];
+
+            // Obsidian-gatavs Markdown pieraksts
+            const markdownNote = `---
+datums: ${today}
+statuss: #jauns-pieteikums
+avots: Kredīta Miera Osta Web
+---
+
+# Klients: ${name}
+
+- **E-pasts saziņai:** ${email}
+- **Izvēlētais formāts:** ${topic}
+- **Telefona zvani:** Nav pieprasīti (diskrēta saziņa)
+
+## Situācijas apraksts
+${summary}`;
+
+            generatedDossier.textContent = markdownNote;
+
+            // Sagatavojam mailto saiti
+            const mailSubject = encodeURIComponent(`Kredīta Miera Osta — ${topic} (${name})`);
+            const mailBody = encodeURIComponent(markdownNote);
+            mailtoDossierBtn.href = `mailto:?subject=${mailSubject}&body=${mailBody}`;
+
+            auditForm.classList.add('hidden');
+            formSuccessBox.classList.remove('hidden');
+        });
+
+        // Kopēšanas poga (izmanto document.execCommand drošībai iframe vidē)
+        copyDossierBtn.addEventListener('click', () => {
+            const textArea = document.createElement('textarea');
+            textArea.value = generatedDossier.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                copyBtnText.textContent = "Nokopēts!";
+                setTimeout(() => { copyBtnText.textContent = "Kopēt kopsavilkumu"; }, 2500);
+            } catch (err) {
+                copyBtnText.textContent = "Iezīmē un nokopē";
+            }
+            document.body.removeChild(textArea);
+        });
+
+        newRequestBtn.addEventListener('click', () => {
+            formSuccessBox.classList.add('hidden');
+            auditForm.classList.remove('hidden');
+        });
+
+        // Palaižam čatu ielādējot lapu
+        window.addEventListener('DOMContentLoaded', initChat);
+    </script>
+</body>
+</html>
